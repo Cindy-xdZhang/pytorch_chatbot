@@ -13,7 +13,7 @@ def parse():
     parser.add_argument('-f', '--filter', action='store_true', help='Filter to small training data set')
     parser.add_argument('-i', '--input', action='store_true', help='Test the model by input the sentence')
     parser.add_argument('-it', '--iteration', type=int, default=10000, help='Train the model with it iterations')
-    parser.add_argument('-p', '--print', type=int, default=100, help='Print every p iterations')
+    parser.add_argument('-p', '--print_every', type=int, default=100, help='Print every p iterations')
     parser.add_argument('-b', '--batch_size', type=int, default=64, help='Batch size')
     parser.add_argument('-la', '--layer', type=int, default=1, help='Number of layers in encoder and decoder')
     parser.add_argument('-hi', '--hidden', type=int, default=256, help='Hidden size in encoder and decoder')
@@ -38,7 +38,7 @@ def parseFilename(filename, test=False):
 def run(args):
     reverse, fil, n_iteration, print_every, save_every, learning_rate, \
         n_layers, hidden_size, batch_size, beam_size, inp, dropout = \
-        args.reverse, args.filter, args.iteration, args.print, args.save, args.learning_rate, \
+        args.reverse, args.filter, args.iteration, args.print_every, args.save, args.learning_rate, \
         args.layer, args.hidden, args.batch_size, args.beam, args.input, args.dropout
     if args.train and not args.load:
         trainIters(args.train, reverse, n_iteration, learning_rate, batch_size,
