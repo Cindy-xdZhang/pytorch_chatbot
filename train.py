@@ -176,9 +176,6 @@ def trainIters(corpus, reverse, n_iteration, learning_rate, batch_size, n_layers
         print('Training pairs not found, generating ...')
         training_batches = [batch2TrainData(voc, [random.choice(pairs) for _ in range(batch_size)], reverse)
                           for _ in range(n_iteration)]
-        #torch.save(training_batches, os.path.join(save_dir, 'training_data', corpus_name, '{}_{}_{}.tar'.format(n_iteration, \
-                                                                       #  filename(reverse, 'training_batches'), \
-                                                                       # batch_size)))
     # # model
     checkpoint = None
     print('Building encoder and decoder ...')
