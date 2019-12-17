@@ -216,7 +216,7 @@ def trainIters(corpus, reverse, n_iteration, learning_rate, batch_size, n_layers
         start_iteration = checkpoint['iteration'] + 1
         perplexity = checkpoint['plt']
 
-    for iteration in tqdm(range(start_iteration, n_iteration + 1)):
+    for iteration in range(start_iteration, n_iteration + 1):
         training_batch = training_batches[iteration - 1]
         input_variable, lengths, target_variable, mask, max_target_len = training_batch
 
