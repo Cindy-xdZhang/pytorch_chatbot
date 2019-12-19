@@ -1,5 +1,6 @@
 /data/
 /save/
 /_pycache_/
+/.idea/
 *.pyc
 nohup.*
