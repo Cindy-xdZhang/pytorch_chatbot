@@ -36,6 +36,7 @@ def filename(reverse, obj):
 # Prepare Training Data
 #############################################
 def indexesFromSentence(voc, sentence):
+    #TODO：把句子转换为index数字串
     return [voc.word2index[word] for word in sentence.split(' ')] + [EOS_token]
 
 # batch_first: true -> false, i.e. shape: seq_len * batch

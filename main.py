@@ -17,7 +17,7 @@ def parse():
     parser.add_argument('-b', '--batch_size', type=int, default=64, help='Batch size')
     parser.add_argument('-la', '--layer', type=int, default=1, help='Number of layers in encoder and decoder')
     parser.add_argument('-hi', '--hidden', type=int, default=256, help='Hidden size in encoder and decoder')
-    parser.add_argument('-be', '--beam', type=int, default=1, help='Hidden size in encoder and decoder')
+    parser.add_argument('-be', '--beam', type=int, default=1, help='Hidden size in encoder and decoder:控制每个输入的回答个数')
     parser.add_argument('-s', '--save', type=int, default=1000, help='Save every s iterations')
     parser.add_argument('-lr', '--learning_rate', type=float, default=0.01, help='Learning rate')
     parser.add_argument('-d', '--dropout', type=float, default=0.1, help='Dropout probability for rnn and dropout layers')

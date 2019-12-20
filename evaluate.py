@@ -50,6 +50,9 @@ class Sentence:
         return (words, self.avgScore())
 
 def beam_decode(decoder, decoder_hidden, encoder_outputs, voc, beam_size, max_length=MAX_LENGTH):
+    # TODO：MAX_LENGTH在config.py定义
+    # TODO：把decoder_hidden, encoder_outputs译码转换成文本
+    #TODO：当beam不为一时调用本函数
     terminal_sentences, prev_top_sentences, next_top_sentences = [], [], []
     prev_top_sentences.append(Sentence(decoder_hidden))
     for i in range(max_length):
@@ -77,7 +80,8 @@ def beam_decode(decoder, decoder_hidden, encoder_outputs, voc, beam_size, max_le
     return terminal_sentences[:n]
 
 def decode(decoder, decoder_hidden, encoder_outputs, voc, max_length=MAX_LENGTH):
-
+    #TODO：MAX_LENGTH在config.py定义
+    #TODO：把decoder_hidden, encoder_outputs译码转换成文本
     decoder_input = torch.LongTensor([[SOS_token]])
     decoder_input = decoder_input.to(device)
 
@@ -103,9 +107,10 @@ def decode(decoder, decoder_hidden, encoder_outputs, voc, max_length=MAX_LENGTH)
 
 
 def evaluate(encoder, decoder, voc, sentence, beam_size, max_length=MAX_LENGTH):
-    indexes_batch = [indexesFromSentence(voc, sentence)] #[1, seq_len]
+    # TODO：evaluate 负责对一个输入句子生成一句回答
+    indexes_batch = [indexesFromSentence(voc, sentence)] #把句子转换为index数字串，[1, seq_len]
     lengths = [len(indexes) for indexes in indexes_batch]
-    input_batch = torch.LongTensor(indexes_batch).transpose(0, 1)
+    input_batch = torch.LongTensor(indexes_batch).transpose(0, 1)#[ seq_len,1]
     input_batch = input_batch.to(device)
 
     encoder_outputs, encoder_hidden = encoder(input_batch, lengths, None)
@@ -156,10 +161,12 @@ def evaluateInput(encoder, decoder, voc, beam_size):
 
 
 def runTest(n_layers, hidden_size, reverse, modelFile, beam_size, inp, corpus):
+    # TODO：beam_size控制每个输入的回答个数.beamsize不为一时EOS符号也会输出？？
     torch.set_grad_enabled(False)
-
     voc, pairs = loadPrepareData(corpus)
     embedding = nn.Embedding(voc.n_words, hidden_size)
+    #nn.Embedding可以训练，完成把X空间转换到（嵌入到）Y空间，nn.Embedding(voc.n_words, hidden_size)表示输入元素（单词）个数为voc.n_words，嵌入到hidden_size维度的空间
+    #即把每一个词从onehot编码转化为每个词用hidden_size维向量表示
     encoder = EncoderRNN(voc.n_words, hidden_size, embedding, n_layers)
     attn_model = 'dot'
     decoder = LuongAttnDecoderRNN(attn_model, embedding, hidden_size, voc.n_words, n_layers)
